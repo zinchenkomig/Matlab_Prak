@@ -1,0 +1,3 @@
+syms psi1 psi2(t) x2(t) T tau k eps
+eqns = [diff(psi2,t) == -psi1 - k*psi2];
+dsolve(eqns, )

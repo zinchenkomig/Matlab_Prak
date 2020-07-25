@@ -1,0 +1,26 @@
+sample_size = 1e3;
+samples_number = 1e4;
+mu = 2;
+sigma = 4;
+X = random('Normal', mu, sigma, [samples_number, sample_size]);
+Sn = cumsum(X, 2);
+nVec = 1:sample_size;
+zb4Vec = Sn(1,:) ./ nVec;
+plot(nVec, zb4Vec);
+hold on;
+plot([1, sample_size], [mu, mu]);
+set(gca,'Xscale','log');
+xlabel('sample size');
+ylabel('S_n/n');
+legend('S_n/n', '\mu');
+
+figure;
+EmpericalVec = ((Sn ./ nVec - mu) .* (nVec .^ 0.5));
+histogram(EmpericalVec(:,end), 'Normalization', 'pdf');
+hold on;
+xVec = linspace(-3 * sigma, 3 * sigma, 100);
+yVec = normpdf(xVec, 0, sigma);
+plot(xVec, yVec, 'Color', [0.9, .2, .2], 'LineWidth', 1.3);
+xlabel('x');
+ylabel('probability');
+legend('(S_n/n - \mu) n^{(1/2)}', 'Normal PDF');
